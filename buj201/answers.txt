@@ -3,4 +3,23 @@ Net ID: BUJ201
 
 Assignment 4
 
-1. 
+1. The first main technique the author used to structure the program is building a package. The entire program is encapsulated within the package (with all modules in a directory containing an __init__.py file).
+
+The second technique is dividing the programming into a number of modules, each addressing a separate concern. For example:
+1. data.py parses advent.dat (the text file containing game data), constructing objects (rooms, messages, hints, objects, etc.) from each section in this data file (note the data file is broken into 12 sections, separated by -1\n).
+2. model.py creates abstract data types (classes), including move, room, word, object, message, hint, and dwarf (with subclass pirate).
+3. adventure.py imports and calls other necessary modules (and external packages) so the game can be initiated from the command line.
+4. game.py handles game mechanics including movement (of player, dwarves and pirates), location, the central do_command function (which implements the effects of the commands input in the prompt by the player), death and callback, hints, and end of game (saving, scoring, and exiting game).
+
+The last technique (alluded to previously) is the use of classes, including move, room, word, object, message, hint, and dwarf. These classes encapsulate state information (attributes) for each instance (i.e. each dwarf has a boolean attribute self.has_seen_adventurer) as well as behavior (for example, objects can be dropped in a room with the self.drop() method).
+
+2. The author has used many meaningful names. For example, attributes of the class room (defined in model.py, line 38) are clearly meaningful and there meanings can be easily inferred. For example, long_description is the long description of a room while short_description is the shortened description (the long descriptions are only used in the prompt a limited number of time, then the short description is used). is_forbidden_to_pirate probably specifies whether or note a pirate can randomly enter a room. is_light probably specifies if the room is light (if it is dark, the lamp object would probably be necessary to light the room). These variable names are very clearly descriptive and human readable. 
+
+On the other hand, there are a number of names that are not meaningful. For example, beginning on data.py line 59, the author defines 12 helper functions to parse the advent.dat file. These function are called section1, section2, …, section12. To determine the meaning of these functions, I had to open up advent.dat, read through the data, and notice that there are 12 sections (separated by -1\n, with the section number given in the first new line after this separator). These functions should have been given longer, more meaningful names (i.e. parse_section1_rooms instead of just section1.
+
+3. Many functions in the code do more than one thing. For example, in game.py  line 131, the docstring for function start2 (a method of Game objects) says “Display instructions if the user wants them.” The function does this with code on lines 132-135, but then procedes to also set the location attributes, place the dwarves in rooms 19, 27, 33, 44, and 64, place the pirate in the final room (which I assume contains a treasure chest), and count the number of treasures remaining (not found). Obviously, this function does much more than “display instructions if the user wants them”.
+
+A function that clearly does one thing is say_ok_and_finish (in game.py, on line 376). This function does exactly what it says it does- it calls self.write_message(54), presumably to say ok. Then it calls self.finish_turn() to finish the turn.
+
+4.
+
