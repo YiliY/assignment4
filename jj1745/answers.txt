@@ -1,0 +1,12 @@
+Questions
+
+1.  From the slides, we can see that there are several ways to structure the code, such as using packages, modules, and creating and
+	organizing classes.
+	(1) The author includes several packages in the 'adventure' module and utilize these packages to open files and parse arguments.
+	(2) More importantly, the author is able to divide the entire program into many modules, each with its own purpose. For example, 
+	    the 'model' module containes several crutial classes for the game. This technique helps readers understand the structure of 
+	    the program and tell specifically tell the functionality of each opponent.
+	(3) The third technique is organizing classes. They help to encapsulate state information of the game and provide many interactive
+		features for the game.
+		
+2.  
