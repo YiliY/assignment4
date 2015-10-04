@@ -9,4 +9,89 @@ Questions
 	(3) The third technique is organizing classes. They help to encapsulate state information of the game and provide many interactive
 		features for the game.
 		
-2.  
+2.  There are many meaningful names such as 'is_forbidden_to_pirate', 'knife_location', and so on. The first one is a boolean variable 
+	indicating whether the hero is allowed to pirate. The second one is about the location of the knife. However, some names are not very 
+	meaningful. For example, 'load_advent_dat' is not a very meaningful name. Some other names are too short.
+	
+3.  Some functions do one thing while others don't.
+	'def is_aboveground(self)', 'def is_dark(self)' returns the location and the situation of the hero. They only return one aspect.
+	Meanwhile, we have function like 'def move_dwarves(self)' that check a bunch of things.
+	
+4.  By definition from the slides, 'side effects are lies'. Most functions in the code seem fine. However,functions such as describe_location
+	in game.py is suspicious. 
+	could_fall = self.is_dark and self.could_fall_in_pit
+        if could_fall and not loc.is_forced and self.random() < .35:
+            self.die_here()
+            return
+    Look at the above block of codes. self.die() should not be included in describe_location. They are not related.
+    
+5.  For example:
+	if obj is bird and self.is_here(snake):
+            self.write_message(30)
+            if self.is_closed:
+                self.wake_repository_dwarves()
+                return
+            snake.prop = 1
+            snake.destroy()
+    The code in gamy.py checked obj like above numerous times. They could be combined into a same function.
+    
+6.  YOU ARE STANDING AT THE END OF A ROAD BEFORE A SMALL BRICK BUILDING.
+	AROUND YOU IS A FOREST.  A SMALL STREAM FLOWS OUT OF THE BUILDING AND
+	DOWN A GULLY.
+
+	> then?
+	I DON'T UNDERSTAND THAT!
+
+	> oka
+	I DON'T KNOW THAT WORD.
+
+	>  
+	> 1323445
+	WHAT?
+    This is a snapshot of what I entered when I ran the code. I didn't spot any significant chunks of code dealing with exception. (There is one piece
+    at the end of adventure.py). Yet the program is able to handle most invalid inputs through if/else control.
+    
+7.  Classes such as Dwarf, Hint, Pirates all have one piece of functionality. However, the class 'game' is just too big. It could check location,
+	determines objects, and can perform a lot other tasks.
+
+8.  In the slides, cohesion means the class maintains a small number of attributes and each method should manipulate one or more attributes. 
+	while most classes are cohesive, 'game' is not. The number of instance variables is too large, but many methods in this class do not manipulate
+	these instance variables.
+	
+9.  The authos likes write short comments after declaring a variable or defining a function. There are both good and poor comments.
+	
+	look_complaints = 3  # how many times to "SORRY, BUT I AM NOT ALLOWED..."
+    full_description_period = 5  # how often we use a room's full description
+    full_wests = 0  # how many times they have typed "west" instead of "w"
+    dwarf_stage = 0  # DFLAG how active the dwarves are
+    These are all good examples of commenting. The variables have meaningful names but additional comments help a lot.
+    
+    # Routines that handle the aftermath of "big" actions like movement.
+    # Although these are called at the end of each `do_command()` cycle,
+    # we place here at the top of `game.py` to mirror the order in the
+    # advent.for file.
+    This is also good comment.
+    
+    # IF LOC.EQ.0 ?
+    This is an example of poor comment.
+    
+10. The 'game' class list instance variables together, which is good vertical formatting. Densities are also matintained decently.  
+
+11. After copying and pasting the tests into the correct folder, we can see that all tests are passed. 
+	Finding files... done.
+	Importing test modules ... done.
+
+	----------------------------------------------------------------------
+	Ran 10 tests in 0.511s
+
+	OK
+	(i) Fast:
+	These tests are fast.
+	(ii) Independent:
+	Here tests do not depend on each other
+	(iii) Repeatable:
+	They are fine in this criterion
+	(iv) Self-validating
+	These tests either pass or fail. 
+	(v) Timely
+	These tests are written AFTER the development so this is not satisfied.
