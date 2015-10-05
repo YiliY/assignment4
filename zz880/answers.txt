@@ -1,20 +1,28 @@
-1. modules classes cohesion
+1. modules: game.py, data.py and model.py are modules which contain many classes, functions and are used for different purpose.
+classes: Game in game.py, Data in data.py and many other classes in model.py
+Single responsibility Principle: Class Move in model.py represents an entry in the travel table and class Room in model.py is used for return a location in the game. 
 
-2. The variable YESNO_ANSWERS means the answers yes or no to a question. 
+2. Meaningful names:
+The variable YESNO_ANSWERS means the answers yes or no to a question. 
 The variable location means the location where you are. 
 The function load_advent_dat is used to load game. 
 
+Meaningless names:
+The functions in game.py start2, objects_here in model.py from which we cannot know what these functions do. 
+
 3. The functions random, choice, write only do one thing and the the functions loop, move_to, move_dwarves do more than one thing. 
 
-4. The function loop has side effect. 
+4. There are some functions have side effect which modify some state or has an observable interaction with calling functions. 
+Function move_dwarves in game.py and loop in adventure.py
 
 5. The function _do_command in game.py has some repeated code which can be written as functions. 
 
-6. The function t_suspend in game.py uses exception handling. I cannot find any input that causes the program to terminate abnormally. 
+6. The function t_suspend in game.py uses try for exception handling. 
+If you try to load a saved game which does not exist, the program will terminate abnormally. For example, enter "python adventure.py a1" but actually a1 does not exist. 
 
-7. The class Game.
+7. The class Game has responsibility for more than one functionality like start the game, write messages and control movements. 
 
-8. Class Object in model.py is not cohesive. 
+8. Most of the classes are cohesive but the large class Game in game.py seems not cohesive. 
 
 9. There are two kinds of comments: """...""" and #. The author uses comments to explain what he did in the following or one line code.
 Good comments:
@@ -41,6 +49,6 @@ def write(self, more):
  
 Leave blank lines between functions and related codes are close. 
 
-11. Passed test_data.py and test_walks.py but failed test_commands.py with error no module named play. The tests meet fast, independent, repeatable and self-validating but I don't know whether the test code was written before or after the program is complete. 
+11. First we need to move all the files from tests directory to adventure directory. Then run all the test python files and there is no error message coming out.I think the tests meet fast, independent, repeatable and self-validating. However I don't know if it meets timely criteria since I don't know whether the test code was written before or after the program is complete. 
 
 
