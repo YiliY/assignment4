@@ -1,0 +1,43 @@
+1. The author uses modular programming to structure the code. Modules such as adventure.py, data.py, and game.py contain code pertaining to starting the adventure, loading the data, and progressing through the game respectively. The modules as a whole divide the concerns of the adventure package they are within.
+The author also uses classes to structure the code. One such class is the Game class (Game.py), which encapsulates state information by initializing variables such as lamp_turns and is_dead. The Game class also contains many functions that describe its behavior.
+The author also uses the single responsibility principle to structure the responsibility of the classes. The Dwarf class (model.py) contains the state information for is_dwarf and is_pirate as well as the functions that define the behavior of Dwarf objects.
+
+2. I think the author uses meaningful names for the most part. The member variables of game have descriptive names that convey what they represent, such as dwarves_killed, which represents the number of dwarves killed, and is_dead, which indicates it is a boolean about whether the user is dead or not. objects_here in game.py line 15 has a meaningful name because we can tell that it returns the objects at that location just from the name. The class names Pirate, Dwarf, and Room in model.py are meaningful names because they are nouns that tell you what behavior the class is responsible for. 
+
+The author doesn't use meaningful names when naming some functions as he uses nouns or adjectives rather than verb phrases, such as random (line 57) and choice (line 60) in game.py. 
+The author could've used better naming practices by creating a variable equal to 5 that represents the length past which input words are truncated rather than hard-coding the value as was done in lines 37, 38 of prompt.py.
+The function start2 in game.py, line 130, is an example of a poor naming practice because there is another function of the Game class called start and it is not clear what the similarities and differences are between these two functions even though the names imply there should be.
+
+3. Some functions in the code do one thing while some do many more. Examples of functions that do one thing are is_finished (line 109) and write_message (line 69) in game.py and is.at (line 127) in model.py
+
+Some functions in the code that do more than one thing are move_dwarves(line 188), say_okay_and_finish (line 376) in game.py and install_words (line 28) in prompt.py
+
+4. Some of the functions that cause side effects are move_dwarves (game.py line 219) as it both sets the value of locations and then uses it to find the new_room, can_move (model.py line 177) because it changes room and returns whether the user can move, and should_offer_hint at line 1585 in game.py as it can modify bird while returning whether a hint should be offered or not.
+
+5. A function can be written to return the value of words longer than five letters in length, for which the logic is replicated in game.py line 121 and prompt.py line 37.
+
+6. The program does not use exception handling as there is no try/throw code. However, there is logic in the code to handle bad user input in the dispatch_command function at line 501 in game.py, which calls dont_understand when the input can't be classified into a type of input it understands.
+The program does terminate abnormally if you try to resume a game that doesn't exist, for example typing "python adventure.py abcd" if there is not saved game called abcd from earlier.
+When I first started playing the game the program terminated abnormally one at the prompt "What do you want to do with the lamp?" when I responded "turn on" but it was before I had started looking at the code or the questions on the assignment and I wasn't able to replicate this error when I went back to it. I don't remember exactly what stage of the game I was in, other than I was in the cave.
+
+7. The Game class has responsibility over more than one piece of functionality as it has instance variables and functions for actions/states related to dwarves which could be its own class, and for actions and states related to lightness/darkness which could be its own class, and for many other similar attributes of the game.
+
+8. Some of the classes are cohesive, but not all of them. The move class is cohesive, 
+
+The game class is not cohesive as it has many instance variables, and many methods only manipulate one of them, while some such as random (line 57)  don't manipulate any of them. The Room class is not cohesive, there are many instance variables that aren't modified by any of the methods. The Hint class isn't cohesive for the same reason
+
+9. Almost all of the author's comments either describe the intention of the module at the top of the module, describe the responsibility of a class, or describe what a method does.
+
+A short description of the author's intention at the beginning of every module is a good use of commenting. The comments in lines 12-17 of play.py are a good use of comment because they explain the behavior of the option 'seed' argument which is not inferrable just by looking at the code.
+Another good use of comments is lines 148-151 in game.py which explain why the structure/ordering of the routines is not in the way one but expect, as it mirrors advent.data file.
+Lines 218-222 are another example of good comments because they explain the consequences of not using a sort to the reader. 
+
+A bad use of comments is line 39 in model.py which says that the Room class is "A location in the game" which is redundant. The comments for the Word class and the Message class (lines 83 and 146) are bad comments for the same reason because they provide no extra information. On the other hand, the comment for the Hint class (line 153) is more useful because it tells you the condition under which a hint is given, which is if the player loiters in one area for too long, so it isn't redundant.
+Some more redundant comments are the comments on lines 34 and 35 in game.py, which are not needed because it is obvious that is_dead and deaths represent whether the player is dead and how many deaths have been accumulated through the names of the variables themselves.
+A bad use of comments to explain code that could have been turned into a well-named function are the comments at lines 117-118 in game.py which explain how the code 5 letter truncations of input words.
+
+10. An example of a good use of vertical formatting is the layout of the Data class in data.py. The class attributes are declared together in the init function, then the three helper functions are stated together, and finally the methods that parse data in each of the sections are stated together, and they call the three helper functions stated before them. This use of vertical formatting makes it very easy to understand how the Data class parses the advent.data file.
+
+11. test_data.py and test_walks.py fail but test_commands.py does not run at all because it could not find the module play to import.
+I think test_data.py and test_walk.py do meet the F.I.R.S.T. criteria because they run very quickly, run independent of other tests, are repeatable, and they either fail or pass. It is unclear to me when the tests were written however. test_commands.py does not meet the F.I.R.S.T. criteria because it doesn't even run due to an error, so it neither passes nor fails.
+
