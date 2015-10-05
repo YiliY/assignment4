@@ -1,0 +1,32 @@
+1. the 3 main techniques that used to structure the program is classes, modules and single responsiblity principle. modules: such as game.py, which contains function like i_attack, it allows seperation in concern for the adventure program. classes: such as model.py, which contains the class objects for adventure program and contain a set of function that define behavior. single responsiblity principle: class hint in model.py line 152 have one piece of responsiblity over hint and the name hint describes the responsiblity it fulfills. 
+
+2.the author used meaningful names: lost_in_maze might determine whether r not lost in maze. (model.py line 49) load_advent_dat might mean that load data from another file (play.py line 3)
+
+non-meaningful names: t_light (game.py line 1053) it is hard to tell what it means by t_light, it should be better to use express the meaning clearer. A verb would be better. start2 (game.py line 130) It is not a good name because there is another function named start and start2 does not show what it does. Although the comment says it is a instruction. 
+
+3. do one thing: carry, drop and hide functions do one thing. (model.py line 130, 134, 138) 
+
+do more than one thing: the start2 function in game.py do more than one thing (game.py line 130)   the section3 function in data.py also do more than one thing (data.py line 67)
+
+4.side effects: the loop function in adventure.py line 19 causes side effects, it uses if, else and whilenot statement to decide whether or not resume the game. 
+
+5.repeated code: the two functions play and resume defined in play.py share several lines of same code. (play.py line 18 and 32)
+
+6.exception handling: Yes, it uses exception handling. Running the program from the terminal prompt. when I input a random word to a question such as "v", it returns "I don't know that word"
+
+7. class have responsiblity over more than one piece of functionality: game class in game.py (game.py line 19) it contains several functions and variables which could be sepereated to their own class.
+
+8. most classes are cohesive, not cohesive class: clasess should maintain small number of attributes, however, the game class in game.py (game.py line 19) is not cohesive, it has too many attributes
+
+9.good comment: the author comments the purpose of a defined function right after the function. For example, it comments "display instruction if the user wants them" for the function start2. (game.py line 130)
+
+bad comment: in the move_to function, there are comments do not show its meaning and very confusing. (game.py line 179)    same thing also happens in game.py line 380-383. 
+
+10.vertical formatting: the game class in game.py (game.py line 19), the instance variables are declared together, and the related functions are kept close, the blank line between functions shows seperate concept.
+
+11. Using the instructed method to run the tests, it shows 2 failures and many errors so it did not pass. F.I.R.S.T. - Fast: this program runs very fast, independent: according to the code, they are independent, they can be run in any order. repeatable: I can run it in the virtualbox environment. self-validating: no input required for tests. timely: not met because it is first public released on Jan 31, 2011, but only 100% tested on Feb 15, 2011.
+
+Therefore, it meets F.I.R.S but not meet T.
+
+
+
