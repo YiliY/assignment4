@@ -1,0 +1,23 @@
+1 modules;classes;cohesion
+Modules:data.py parse the underlying game data file,game.py keep tracking of the game state
+Classes:model.py move class move in the game, class object etc
+Cohesion: how Methods and class fit together
+2 Meaningful names: is_dark in the room class in model.py line #79 determines it is either dark or lightened.
+is_forbidden_to_pirate determines whether a pirate could enter a room or not
+non-meaningful names: loop only tells us that the meaning literarily but no context.
+3 Doing one thing: is_at (model.py line#127) 
+Doing more things:say_ok_and_finish (game.py line#376)
+4 Yes. describe_location (game.py line#323). the function firstly evaluates if could fall. if fall, a random number is drawn
+move_dwarves (line #188) may have a fatal number of knife_wounds then side effect self.die() happens.
+5 _do_command (game.py) has some repearted code
+6 Yes, exception handling are used for the inputs. if i type capital letters instead of lower letters, there was an error note comes out
+7 the class Game responsible over more than one piece of function. it could be several subclasses.
+8 Class,Game class (game,py line 19) cohesive. It has many methods or many variables
+9 Good Comments:
+look_complaints= how many times to "sorry, but i am not allowed..."
+self.write_message(2) (game.py line 175)"# dwarf is blocking the way"
+Bad Comments examples:
+"# Game startup" "start the game""set things going"
+10 There are several examples of effective vertical formatting. For instance, compute_score (game.py line 1649) players score and maximum possible score. 
+11 It meets Fast, Independent, repeatable, and self-validating but not timely. The first public release was at Jan 31st 2011 and was not coveraged until Feb 15th 2011.
+
