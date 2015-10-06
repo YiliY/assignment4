@@ -79,6 +79,9 @@ Ans.Yes, There are functions which cause side effects. Below are the examples,
       
       2. describe_location ( game.py line 323 ) : This function also has some treasure related functionality which is not related to location descreption.
 
+
+
+
 5.	Can you find any repeated code that could be made into a function?
 Ans. There are cases when functions use almost  same type of code within if-else loop for different conditions. Code can be optimized if separate small function handle the work within the if conditions.
     
@@ -110,7 +113,7 @@ Ans. There are cases when functions use almost  same type of code within if-else
 
 6.	Does the program use exception handling? Can you find any input that causes the program to terminate abnormally? Hint: run the program from the terminal prompt. The invalid input may not be normal text.
 Ans. Yes, Exception handling is used in adventure.py program.
-	---------------------
+    ---------------------
 		try:
         loop()
     except EOFError:
@@ -125,9 +128,9 @@ Ans. I think classes Move, Game, Data, Room, Word, Object, Message, Hint, Pirate
         This seems extra functionality for Dwarf class.
 
 8.	Are the classes cohesive? List any that aren’t.
-Ans.Yes, the classes seem cohesive. As an example Game and Data Classes have cohession as they are distributed in reusable functions, well connected.
+Ans.Yes, the classes seem cohesive. As an example Game and Data Classes have cohession as they are distributed in reusable functions and also well-connected.
    --> I just found one example of class which is not cohesive which is : 'Room'
-	- 'Room' class has has 15 variables but only few of them have been used in function definations. Which factor is the characteristic of the class which is not cohessive.
+     - 'Room' class has has 15 variables but only few of them have been used in function definations. This factor is the characteristic of the class which is not cohessive.
 	
 	
 9.	Describe the author’s approach to commenting the code. Provide examples of good and bad comments that have been used in the code.
@@ -135,12 +138,14 @@ Ans.Author's approach is niether good nor bad. At some places he explained very 
 
 Example of good comments:
 
+        ( game.py line 148 ) 
 	1. # Routines that handle the aftermath of "big" actions like movement.
        # Although these are called at the end of each `do_command()` cycle,
        # we place here at the top of `game.py` to mirror the order in the
        # advent.for file.
 	-> So this type of comment can give the idea about the abstract functionality to the reader.
 
+        ( game.py line 241 )
 	2.  # A dwarf cannot walk and attack at the same time.
 	
 	
