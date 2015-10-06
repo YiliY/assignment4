@@ -1,0 +1,250 @@
+Answers to assignment 4
+
+Q1/
+To structure the code, the author uses modules, classes and functions
+
+Q2/
+Most of the time yes. Here is an example of a variable with a meaningful name :
+
+is_dead = False  # whether we are currently dead
+
+Nevertheless, it is possible to find some functions that could be more explicit, such as :
+
+def start2(self, yes):
+        """Display instructions if the user wants them."""
+
+Moreover as a consequence, later on in the code, the author call the function start2 and has to comment it, which proves that the name is not explicit : 
+
+self.yesno(self.messages[65], self.start2)  # want instructions?
+
+Q3/ 
+No, a lot of functions do not do one single thing.
+
+Here is an example of a function doing one thing : 
+
+def write_message(self, n):
+        self.write(self.messages[n])
+
+Here is an example of a function doing many things : 
+
+def move_dwarves(self):
+
+        #6000
+        if self.dwarf_stage == 1:
+
+            # 5% chance per turn of meeting first dwarf
+            if self.loc.is_before_hall_of_mists or self.random() < .95:
+                self.describe_location()
+                return
+            self.dwarf_stage = 2
+            for i in range(2):  # randomly remove 0, 1, or 2 dwarves
+                if self.random() < .5:
+                    self.dwarves.remove(self.choice(self.dwarves))
+            for dwarf in self.dwarves:
+                if dwarf.room is self.loc:  # move dwarf away from our loc
+                    dwarf.start_at(self.rooms[18])
+            self.write_message(3)  # dwarf throws axe and curses
+            self.axe.drop(self.loc)
+            self.describe_location()
+            return
+
+        #6010
+        dwarf_count = dwarf_attacks = knife_wounds = 0
+
+        for dwarf in self.dwarves + [ self.pirate ]:
+
+            locations = { move.action for move in dwarf.room.travel_table 
+                          if dwarf.can_move(move)
+                          and move.action is not dwarf.old_room
+                          and move.action is not dwarf.room }
+            # Without stabilizing the order with a sort, the room chosen
+            # would depend on how the Room addresses in memory happen to
+            # order the rooms in the set() - and make it impossible to
+            # test the game by setting the random number generator seed
+            # and then playing through the game.
+            locations = sorted(locations, key=attrgetter('n'))
+            if locations:
+                new_room = self.choice(locations)
+            else:
+                new_room = dwarf.old_room
+            dwarf.old_room, dwarf.room = dwarf.room, new_room
+            if self.loc in (dwarf.room, dwarf.old_room):
+                dwarf.has_seen_adventurer = True
+            elif self.loc.is_before_hall_of_mists:
+                dwarf.has_seen_adventurer = False
+
+            if not dwarf.has_seen_adventurer:
+                continue
+
+            dwarf.room = self.loc
+
+            if dwarf.is_dwarf:
+                dwarf_count += 1
+                # A dwarf cannot walk and attack at the same time.
+                if dwarf.room is dwarf.old_room:
+                    dwarf_attacks += 1
+                    self.knife_location = self.loc
+                    if self.random() < .095 * (self.dwarf_stage - 2):
+                        knife_wounds += 1
+
+            else:  # the pirate
+                pirate = dwarf
+
+                if self.loc is self.chest_room or self.chest.prop >= 0:
+                    continue  # decide that the pirate is not really here
+
+                treasures = [ t for t in self.treasures if t.is_toting ]
+                if (self.platinum in treasures and self.loc.n in (100, 101)):
+                    treasures.remove(self.platinum)
+
+                if not treasures:
+                    h = any( t for t in self.treasures if self.is_here(t) )
+                    one_treasure_left = (self.treasures_not_found ==
+                                         self.impossible_treasures + 1)
+                    shiver_me_timbers = (
+                        one_treasure_left and not h and not(self.chest.rooms)
+                        and self.is_here(self.lamp) and self.lamp.prop == 1
+                        )
+
+                    if not shiver_me_timbers:
+                        if (pirate.old_room != pirate.room
+                            and self.random() < .2):
+                            self.write_message(127)
+                        continue  # pragma: no cover
+
+                    self.write_message(186)
+                    self.chest.drop(self.chest_room)
+                    self.message.drop(self.rooms[140])
+
+                else:
+                    #6022  I'll just take all this booty
+                    self.write_message(128)
+                    if not self.message.rooms:
+                        self.chest.drop(self.chest_room)
+                    self.message.drop(self.rooms[140])
+                    for treasure in treasures:
+                        treasure.drop(self.chest_room)
+
+                #6024
+                pirate.old_room = pirate.room = self.chest_room
+                pirate.has_seen_adventurer = False  # free to move
+
+        # Report what has happened.
+
+        if dwarf_count == 1:
+            self.write_message(4)
+        elif dwarf_count:
+            self.write('There are {} threatening little dwarves in the'
+                       ' room with you.\n'.format(dwarf_count))
+
+        if dwarf_attacks and self.dwarf_stage == 2:
+            self.dwarf_stage = 3
+
+        if dwarf_attacks == 1:
+            self.write_message(5)
+            k = 52
+        elif dwarf_attacks:
+            self.write('{} of them throw knives at you!\n'.format(dwarf_attacks))
+            k = 6
+
+        if not dwarf_attacks:
+            pass
+        elif not knife_wounds:
+            self.write_message(k)
+        else:
+            if knife_wounds == 1:
+                self.write_message(k + 1)
+            else:
+                self.write('{} of them get you!\n'.format(knife_wounds))
+            self.oldloc2 = self.loc
+            self.die()
+            return
+
+        self.describe_location()
+
+Q4/ 
+Yes, the following function has side effects :
+
+def move_to(self, newloc=None):  #2
+        loc = self.loc
+        if newloc is None:
+            newloc = loc
+
+        if self.is_closing and newloc.is_aboveground:
+            self.write_message(130)
+            newloc = loc  # cancel move and put him back underground
+            if not self.panic:
+                self.clock2 = 15
+                self.panic = True
+
+        must_allow_move = ((newloc is loc) or (loc.is_forced)
+                           or (loc.is_forbidden_to_pirate))
+
+        dwarf_blocking_the_way = any(
+            dwarf.old_room is newloc and dwarf.has_seen_adventurer
+            for dwarf in self.dwarves
+            )
+
+        if not must_allow_move and dwarf_blocking_the_way:
+            newloc = loc  # cancel move they were going to make
+            self.write_message(2)  # dwarf is blocking the way
+
+        self.loc = loc = newloc  #74
+
+        # IF LOC.EQ.0 ?
+        is_dwarf_area = not (loc.is_forced or loc.is_forbidden_to_pirate)
+        if is_dwarf_area and self.dwarf_stage > 0:
+            self.move_dwarves()
+        else:
+            if is_dwarf_area and loc.is_after_hall_of_mists:
+                self.dwarf_stage = 1
+            self.describe_location()
+
+Indeed, this function is difining the moves of the player, but also make the dwarves to move in certain cases with "self.move_dwarves()" or changes the dwarves state with "self.dwarf_stage = 1"
+
+Q5/
+Yes there is repeated code, for exemple in the module play.py :
+
+    global _game
+
+    from game import Game
+    from prompt import install_words
+
+These three lines are repeated in 2 functions so could have been written only once at the beginning of the module
+
+Q6/
+The programm does not use exception handling. For example, when running the program from the terminal prompt, it is first asked whereas we would like to read the instruction (yes/no expected). If any other letters/word written, the programm would ask to "answer de the question". But then if any special caracters are written by the player (ex "%$&"), the program does not handle this input.
+
+Q7/
+Yes, the class Game for example has many functionalities such as allowing the player to move in the game, displaying messages, interpreting commands, defining all the possible possible verbs of the game, ...
+
+Q8/
+
+Q9/
+The author includes a comment at the top of each module, as well as a first line of each class to explain it, which is a good practice. Then he uses comments either to comment steps in the code (comments that are between two lines of codes) or to comment particular actions/lines of the code (which means that the code is not very explicit by itself).
+
+Here is an example of good comment since it explains the deliberate choice to consider only the first five letters of each word, so it describes well the code that follows and the reasons of that choice:
+
+	# For old-fashioned players, accept five-letter truncations like
+	# "inven" instead of insisting on full words like "inventory".
+
+        for key, value in list(self.vocabulary.items()):
+            if isinstance(key, str) and len(key) > 5:
+                self.vocabulary[key[:5]] = value
+
+As for the example of bad comment, let's take the same example we chose in Q2/:
+
+self.yesno(self.messages[65], self.start2)  # want instructions?
+
+Where the function "start2" is a function that displays the instructions at the begining of the game. The author should have chosen a more explicit name as such as "display_game_instructions" for example.
+
+Q10/
+Here is an example of where vertical formatting has been used to make the code clearer:
+
+        return (room.is_after_hall_of_mists
+                and not room.is_forced
+                and not move.condition == ('%', 100))
+
+Q11/
+
+
