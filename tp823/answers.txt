@@ -1,0 +1,37 @@
+1. The author created the program by the using different modules. It makes the program more readable and allows the programmer to easily debug the program if there are any errors. The author incorporates class structures in the program to organize functional attributes. In addition, the author also created different functions that could be reference in throughout the module.
+
+2. Observing the model.py program, the author make a good use in defining meaningful names to describe the different objects in the game. For example, Line 38, the author defines a class called room. As you look down the through lines, the author used meaningful names to describe the objects in room. An example where the author doesn't use meaningful names is in data.py, when he describes the different sections (lines 57 through 225). The author could have provided more meaningful name to help the user understand the different components that make up the different sections.
+
+3. Lines 1325 through 1337, in the game.py module, is an example of a function that does one thing. This function return a list of 
+objects the user is has in his/her inventory ( eg. Water, lamp, keys). In the game.py module, lines 982 through 1051 is an example of
+a function that does more than one thing. These functions interact with the player and return different answers depending on the l
+ocation, inventory, and object that player has/input into the game.
+
+
+4.The save function in adventure.py, lines 19-25 is an example of a side effect. If the user decides to save his game, the program output is 
+‘PROVIDE "SAVE" WITH A FILENAME OR OPEN FILE’.The author could correct this effect by removing the ‘Open file option’. 
+
+5. Reviewing the data.py program, lines 64 to 65 and lines 193 to 194 could written into one function. Both functions have the same argument structure. 
+
+6. In some cases the programs use exception handling.  For example, the program informs the user if the verb/noun exists the program. 
+I did not find anything that would cause the game to terminate abnormally.  However, I did notice that once you insert characters 
+such “#, @, %”, into the game, the program returns no response. 
+
+7. In the game.py module, the class Game (Data) has multiple functionalities. For example, this class has a sets of functions that 
+calculate your score and a set of functions that allow the user to manipulate different objects in game.   
+
+
+8. The class Game (Data) in the game.py module has many different functionalities that are unrelated; and thus are not cohesive. In order 
+solution to rectify this low cohesion, the author could develop separate classes for the functions that are unrelated.  
+
+9. The author incorporates some good comments throughout the program, especially in providing comments about the classes representing Adventure
+game components in the model.py module. For example, the model.py module, lines 38 to 55, where the author describes the room object. This is 
+especially helpful if one wants to add more elements to a room. However, if you shift through other modules, you noticed that author incorporates bad comments. For example, in game.py module, line 179, the author uses a comment ‘# if LOC.EQ,0’. The author gives no indication on what ‘LOC.EQ.0' means. This use of bad commenting is prevalent throughout the game.py module. 
+
+
+10. In model.py, we probably could convert the class Pirate (line 185) to a function that exists in the Class Dwarf (line56).  Since both classes test whether an object is a pirate or a dwarf, we probably could combine both functions. 
+
+11. The tests provided with the adventure do not produce any output.  All other test modules run without error expect the test_commands.py module.  These tests modules fail to meet to the F.I.R.S.T criteria because the author did create the program and tests simultaneously. However, the tests do run fast, and are independent of one another. 
+
+
+
