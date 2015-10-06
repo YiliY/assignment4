@@ -1,0 +1,52 @@
+Answers:
+
+1- Module: on adventure.py, lines 8 and 9 show the use of modules play and game through "import" 
+   Class: on game.py, line 19 shows the use of a class
+   Package: the adventure folder is the package, and the indicator is the _init_.py file within it
+   
+2- Yes. On line 17 of game.py, "YESNO_ANSWERS" is a good example of a meaningful name, and it means two possible answers (yes or no).
+   On line 69 of game.py, "write_message" is a good example of a meaningful name, and it seems the function ca write a message.
+   On line 3 of play.py, "load_advent_dat" is a good example of a meaningful name, and it seems the function can load the file advent.dat.
+   On line 11 of model.py, "__repr__" is a good example of a bad name to convey meaning, and I have no clue of what the function does.
+   On line 24 of prompt.py, "__getattr__" is a good example of a bad name to convey meaning, and It could mean get an attribute, but it is not clear.
+   On line 95 of model.py, "__eq__" is a good example of a bad name to convey meaning, and I have no clue of what the function does.
+
+3- On line 69 of game.py, the  "write_message" function does only one thing.
+   On line 95 of model.py, the "__eq__" function does only one thing.
+   On line 54 of data.py, the "accumulate_message" function does only one thing.
+   On line 130 of game.py, the "start2" function does more then one thing.
+   On line 130 of game.py, the "start2" function does more then one thing.
+   On line 153 of game.py, the "move_to" function does more then one thing.
+   
+4- On line 188 of game.py, the "move_dwarves" function also does "write_message".
+   On lines 454 to 458 and  of play.py, the "play" function also does "load_advent_dat" and "install_words".
+   
+5- On line 32 and 33 of prompt.py, the "word.append()" function is used twice for the same purpose, and this could be done by one function at once.
+
+6- On lines 43 to 45 of adventure.py, there is an error handling. Also, there are error handling for answers from user's input. I tried many weird characters' combination
+   to crash the program, but it didn't work.
+   
+7- Yes. On line 19 of game.py  , the "Game" class deals with many different functionality such as "start and finish" on lines 109 and 114, "objects" on lines 96 and 99, 
+   and "write_message" on line 69.
+   
+8- On model.py, many classes are cohesive. On game.py, the "Game" class has a big number of variables. The same variable is handled by more than one
+   function (look_complaints by "i_brief" on line 1477 and "do_motion" on line 662).
+   
+9- The author uses different kinds of comments such as some using the grey color and others the green color. Also, some of them are to the right side of the code and others
+   on the top of the code. The green ones are easier to notice, and ones on the top as well. 
+   On line 57 of data.py, the comment (# Knowledge of what each section contains) is trying to make up for bad coding while each function should be more meaningful
+   like (room_content). On line 702 of game.py, the comment (#30100) could contain more information to be meaningful. On line 153 of model.py, the comment
+   ("""A hint offered if the player loiters in one area too long.""") narrow down the possibilities for "hint". On line 1 of adventure.py, the comment
+   ("""Offer Adventure at a custom command prompt.""") is a good explanation of intent.
+   
+10- On line 38 of model.py, the "Room" class presents a good vertical formatting. It puts one blank line to separate concepts providing openness.
+
+11- They all passed. In my opinion all tests were very fast. Test_commands.py took 5.6s. Test_data.py took .58s. Test_walks.py took 4.2s. The three tests were independent
+    of each other, but test_data.py ran 10 tests at the same time while the two others ran 2 tests at the same time. The tests seems to be repeatable in any environment. 
+    The tests are self-validating providing just a ok as passing. It seems the tests were written during code development. 
+   
+   
+
+Works Cited
+- Martin, Robert C. Clean Code: A Handbook of Agile Software Craftsmanship. Upper Saddle River, NJ: Prentice Hall, 2009. Print.
+- Classes' lecture
