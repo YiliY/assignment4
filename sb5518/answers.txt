@@ -1,0 +1,85 @@
+﻿1-
+* The author used modules to structure the program. Some examples of modules:
+   * adventure.py calls the rest of the modules when required. It is the module used to execute the program
+   * data.py is used to parse the original advent.dat file
+* The author has stored the program inside a package, where all the classes are contained. 
+* The author used classes to encapsulate state information and contain certain behavioral functions. A good example would be the class Dwarf (file: model.py, line: 165)
+2-
+
+
+Good Names:
+
+
+- Class Hint (file:model.py, line 152). I think that the names are self-explanatory. It clearly states the number of turns required for the hint, if it was used, etc.
+- Function is_dark (file:game.py, line: 81). It is clear that the function handles the darkness of the cave. The objects such as ‘lamp’ are properly named and it is clear what the function does.
+
+
+Bad Names
+
+
+- Function expand_tabs (file:data.py, line: 46). It is not clear what the function “iter” is. I guess that it means iteration or something similar. Nevertheless, calling a new variable “it” is clearly not very descriptive. Neither is the variable “line” or next().
+- In (file: game.py, line:258) there is an if statement that is very difficult to understand. Naming variables as “h” and “t” makes the program difficult to follow.
+
+
+3- 
+
+
+Functions that do one thing:
+
+
+- section10 (file:data.py, line: 183). Appends score and line to data.class_messages
+- random (file:game.py, line: 57). Just generates a random variable.
+
+
+Functions that do more than one thing:
+
+
+- start (file:game.py, line 114). This function not only sets up the number of letters of the input that are read and whether instructions will be displayed or not, but also determines the content of the bottle that has nothing to do.
+- move_dwarves (file:gamy.py, line 188). This function not only move the dwarves but also describes location, affects location, etc.
+
+
+4- Yes, in the case of the mentioned function start it does not only starts the game, but also determines the content of the bottle. In the case of move_dwarves, it does not only affect dwarfs but can affect the location, the treasuries, print messages, etc.
+
+
+5- In the function resume (file:game.py, line: 1577) the random_generator is reinstated. In other functions it is requested to delete the random generator as well. If the random function (line 57) was better constructed, it would have saved some code there.
+
+
+6- The author uses exception handling for example in (file:adventure.py, line: 45). I have tried using different combinations and numbers of characters and special characters but was not able to terminate the program abnormally. 
+
+
+7- Class Game (file:game.py, line 19) is really huge and takes care of several functionalities. 
+Class Dwarf (file:model.py, line: 165) takes care of the location but of the movement as well.
+
+
+8- Some classes are cohesive and some are not. Examples of non cohesive classes:
+        -Game (file:game.py, line:19)
+        -Hint (file:model.py, line:152)
+These classes do not maintain a small number of instance variables or their methods do not manipulate one or more of these.
+
+
+9- 
+
+
+The author uses comments for several purposes. For example, he briefly explains what a specific class consists of, or he explains what the file contains. He also uses comments to clarify what specific values a function can take in different scenarios. In my opinion, the author uses more comments that he would have required if he had structured the program in a different way and used better naming. 
+
+
+Good Comments:
+
+
+- #Properties of the cave. (file:game.py, line:78). Despite the fact that the structure of the program could be better in order to separate the Properties of the cave from the functions of the game startup, given the current structure it is useful to have comments making clear what each part corresponds to.
+
+
+Bad Comments:
+
+
+- #oil (file:data.py, line: 174): The author has to explain that the object in fact is Oil because the code is not self explanatory. 
+- “””A location in the game. “”” (file:model.py, line:39). The comment is redundant since it is obvious that a Room is a Location in the game. If it was not obvious, the class should have been called “Location” instead of “Room”.
+
+
+10- There are many examples of vertical formatting used in the program. For example in the class Word (file:model.py, line: 39) the author separates the class from the previous class with a blank line. He also defines the attributes at the beginning of the class and separates it method with another blank line. 
+
+
+11- After copying the tests in the same folder as the rest of the files, all the tests passed.
+
+
+In some sense the tests meet the F.I.R.S.T criteria and in some do not. For example, the tests are self-validating (pass or fail) , Independent and Fast. However, I doubt that they were written with a Test Driven Development. They are not very clear and not as important as the main code. Furthemore, they were not written during the code development, so I do not think that they are “Timely”.
