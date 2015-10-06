@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>tp823</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>answers.txt</name>
+			<type>1</type>
+			<location>/home/ds-ga-1007/Answers.txt</location>
+		</link>
+	</linkedResources>
+</projectDescription>
