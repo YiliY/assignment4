@@ -1,13 +1,13 @@
 1. 
 -The program is object oriented.
--The program is modular (separated in different files)
+-The program is modular.
 -The author separated the model (mainly in the class model.py) from the flaw of the game (mainly in the file game.py)
 
 
 2. 
 Examples of meaningful name in file game.py:
 -dwarf_blocking_the_way (line 168): tell if there is a dwarf blocking the way
--move_dwarves(self) (line 188): move a dwarf from one location to another one 
+-move_dwarves(self) (line 188): moves dwarves from one location to another one 
 -knife_wounds (line 210): count the number of knife wounds the player received
 
 Examples of not meaningful names in file game.py
@@ -35,7 +35,7 @@ self.do_motion(self.vocabulary[2])   (Line 346)
 
 
 5.  
-
+I couldn’t find any clear repeated code that could be made into a function. 
 
 6. The program doesn’t use a lot of exception handling. It uses just in a few lines as at line 43 of adventure.py.
 An input that causes an error is: ctr+c. The result is:
@@ -59,7 +59,7 @@ The following classes are not cohesive:
 
 
 9. 
-The author uses comments really rarely and some of them don’t really explain much.
+The author uses comments rarely and some of them don’t really explain much.
 Examples of good comments:
 
 - # Check whether we should offer a hint.(line 389 of game.py)
@@ -92,7 +92,7 @@ And also, we need to add the one of code:
 if __name__ == '__main__':
     unittest.main()
 
-1) for test_commands.py: 
+a) for test_commands.py: 
 After that the result of the test are:
 ..
 ----------------------------------------------------------------------
@@ -101,18 +101,18 @@ Ran 2 tests in 4.027s
 OK
 
 
-2) for test_data.py:
+b) for test_data.py:
 ..........
 ----------------------------------------------------------------------
 Ran 10 tests in 0.108s
 
 OK
 
-3)for test_walks.py (to run this test we also need to move to the parent directory the two file: syntax.txt and vignettes.txt):
+c)for test_walks.py (to run this test we also need to move to the parent directory the two files: syntax.txt and    vignettes.txt):
 ..
 ----------------------------------------------------------------------
 Ran 2 tests in 2.886s
 
 OK
 
-Once moved and changed as described, the tests all respect the F.I.R.S.T. criteria.  
+Once moved and changed as described, the tests all respect the F.I.R.S.T. criteria, (well, we cannot say anything about Timely because we don’t know when the author wrote the test).  
