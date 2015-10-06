@@ -1,0 +1,43 @@
+1. 
+First, the author separates the files to each have a different function. For example adventure.py launches the game, game.py contains commands to move around in the game, and data.py points to the objects that the user will encounter during different parts of the game.  
+Second, in game.py, the game is structured as a class to define behavior that the game can take on. This helps organize those functions.  
+Third, some discrete functions are given there own separate scripts.  This includes, for example play.py and promt.py.  
+
+2.
+In game.py:
+good names:
+Line 17: YESNO_ANSWERS, a dictionary to correct true and false from user input
+Line 25: dwarves_killed, a count of dwarves killed  
+Line 623: i_see_no, responds "I see no..." when necassary
+poor names: 
+Line 12: is_dead, without comment, unclear who is dead
+Line 842: t_carry
+
+3.
+adventure.py Line 13: "def baudout(s)" has just one function (with outputs captured)
+The function "move_dwarves" in game.py line 188 does many things, with several if statement guiding what should happen in the game.  
+
+4.
+On line 163 of game.py, there may be a side effect.  The value of self.panic appears to be forced to be true instead of using the given value of self.panic.  
+
+5.
+In game.py "hint.turn_counter" is set to zero several time between lines 397 and 411.  This could be set to a function.  
+
+6.
+Yes. On line 1554 of game.py, "try" is used to handle exceptions.  
+
+7.
+Yes.  class Game(Data) in game.py handles MANY functionalities.  
+
+8.
+The class Data(object) in data.py is not very cohesive because it does not manipulate very many variables.  
+
+9.
+The author generally comments at the beginning of each file to explain the purpose of that file.  Some comments also break up sections.  Helpful code in game.py includes the comment on line 193.  This comment reminds us why we set the inequality to .95 in the following if statement.  In game.py, less helpful comments are on lines 21-37.  If the variables had clearer names, these comments wouldn't be needed.  Also, you would have to scroll up the page to find out what they meant if you forgot later on in the script.  
+
+10.
+data.py makes good use of vertical formatting.  We can clearly see there are two functions defined in the class.  Outside of the class is a clear set of helper functions.  
+
+11.
+test_commands.py fails because it cannot find a module named "play." The test_data.py and test_walks.py seem to follow F.I.R.S.T criteria.  They run quickly (<1s), are independent of one another, are repeatable, self-validating, and may to be timely (i.e. written during the development of the game).  
+
