@@ -1,7 +1,7 @@
-eparated the code into modules and classes within the modules 
+1)  The author separated the code into modules and classes within the modules 
 that keep the same theme.  When creating a new class, he instantiates 
 all of his class variables in one place.  The program is heavily commented, giving information about functions, variables and general rationale for the code.
-
+modular, suingular
 2.
 Meaningful
 dwarves_killed - number of dwarves killed - game.py line 25
@@ -29,11 +29,11 @@ is_here -game.py line 102
 is_finished game.py line109
 
 4.
-move_to - writes a message, resets clock, changes panic mode and 
-moves_dwarves.
-moves_dwarves - This function is over 100 lines and does many things that will have side effects in other functions/classes.  To name a few; changes the dwarf count, does a variety of different actions depending on the inventory, removes items from the inventory and writes messages.
+move_to - writes a message, resets clock, changes panic mode and moves_dwarves.
+moves_dwarves - This function is over 100 lines and does many things that will have side effects in other functions classes.  To name a few; changes the dwarf count, does a variety of different actions depending on the inventory, removes items from the inventory and writes messages.
 
 5.  In play.py, lines 18,20,21,25 are repeated on lines 30,32,33,36 .  You could put this code in a separate function, initializeGames() and call it from resume() and the beginning of the page where imports are typically implemented.  
+
 6.
 The program exits when pressing Control + c/z.  Other than that the program seems to correctly handle the cases where it does not understand the text.
 
@@ -45,6 +45,6 @@ The program exits when pressing Control + c/z.  Other than that the program seem
 
 10.  The author seperates import statements from other code (game.py line 9-16), instantiated class variables from functions (game.py line 31-37) and functions from eachother.  
 
-11.  All of the files in the directory tests needed to be moved up one level in order for the tests to run properly.  After moving the files all three tests passed.  The tests ran in 4s,2s and .5 s respectively.  I would not call this fast.  The tests appeared to be independent as I ran them in different orders and there was no issues.  The tests were not even repeatable in their current file structure.  The tests only passed or failed - they were self-validating.  From the README.txt file I see that he passed the tests after the first release suggesting that he wrote the tests after the code was done.    
+11.  All of the files in the directory tests needed to be moved up one level in order for the tests to run properly.  After moving the files all three tests passed.  The tests ran in 4s,2s and .5 s respectively.  I would not call this fast.  The tests appeared to be independent as I ran them in different orders and there were no issues.  The tests were not even repeatable in their current file structure.  The tests only passed or failed - they were self-validating.  From the README.txt file I see that he passed the tests after the first release suggesting that he wrote the tests after the code was done.    
 
 
