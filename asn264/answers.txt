@@ -1,0 +1,60 @@
+Aditi Nair (asn264)
+DSGA 1007: Homework Two 
+
+
+1. Three main techniques that the author used to structure the program are: classes (like the Game class), modules (like the Play module), and the single responsibility principle (like the Room class, which represents a single location in the game).
+
+
+
+2. Some of the names are meaningful. The name for the Hint class is meaningful and it implies that each instance of the class represents a single Hint. The is_dark and is_finished functions in the Game class have meaningful names which imply that they will return Booleans indicating whether something is dark or not and whether something is finished or not. Some names are not meaningful. In the Game class these include functions called start2, objects_here, and objects_at. The name of the file model.py as well as the name of the class Object defined inside of it are also not meaningful.
+
+
+
+3. The inventory function in the Game class in game.py does one thing: it returns a list of items in inventory. In the same class, is_here does only one thing: it returns the value of a compound boolean statement, rather than having statements that individually come up with the boolean values to be evaluated in the compound statement.
+
+The is_dark function in the Game class in game.py does more than one thing: first it assigns a value to lamp, then evaluates whether is_dark should return true or false, and then it returns the appropriate value. The move_dwarves function in the same class also does many things. In addition to many different responsibilities for determining dwarf behavior and assigning various variable values, it is also responsible for reporting what has happened with the dwarves afterwards.
+
+
+
+4. Just in the Game class in game.py, there are several functions with side effects because they modify some state or have some observable effect. These include:
+- move_dwarves: in some cases, it changes the values of dwarf_count, dwarf_attacks, and knife_wounds and more
+- start2: for each treasure in treasures, reduces the value of treasures.prop by 1
+- move_to: changes the value of self.loc
+
+
+
+5. There is some repeated code. For example, in the Game class, there is a function move_dwarves. At various points within this function, it has if clauses dedicated to evaluating the values of dwarf_stage, dwarf_count, and dwarf_attacks and then calling self.write_message(x) with different values for x. Similarly, the _do_command function in the Game clause contains a lot of if, elif, and else clauses which evaluate various game and players conditions, and then call write_message(x) for different x values. Instead if there was some helper function or set of functions responsible for checking these various conditions and then determining the value of the variable x to be passed to write_message, the code would be much cleaner and much more concise.
+
+
+
+6. The code does not explicitly use exception handling with the use of try and throw clauses. However, the program is prepared to handle certain kinds of unusual user behavior: if you answer the prompts with responses that the game does not recognize then the game will respond and tell you it doesn't understand what you are saying. However, I did find that if you run the program with "python adventure.py file_name", then the program thinks that "file_name" is a saved game and tries to resume that game. However, if file_name does not exist at the address given, the program crashes. The author should have used exception handling to check whether file_name exists in the first place (rather than immediately trying to open the file) and to tell a player when they try to pass bad arguments to the call.
+
+
+
+7. The Game class has responsibility for more than one functionality. It is partially responsible for interacting with the player and writing messages, for handling properties of the caves, for game startup, contains routines to handle the aftermath of "big events", handles some dwarf behavior, death, reincarnation, and much more. Some of these highly varied responsibilities would be better left to other, more specialized classes.
+
+
+
+8. The Game class is not cohesive. As defined in the lecture notes, to be cohesive, a class should contain a small number of attribute variables and each method should manipulate one or more of these. The Game class has more than fifteen instance variables, but the function write_message does not manipulate a single one of them. Even methods that do manipulate some of these variables do not manipulate many of them. 
+The Room class in model.py is also not very cohesive because there are over ten instance variables, but the methods is_aboveground, is_before_hall_of_mists, and is_after_hall_of_mists do not manipulate a single one of them. 
+
+
+
+9. The author has commented the code in a way that is probably instructive or helpful to him when writing or re-reading his code, but offers little value in terms of making it comprehensible to an outside reader. Even though some of the comments may be helpful if you have a general understanding of his process, many are not very instructive. 
+In the play class he uses the following comment which is very helpful given the way the code below is written:
+
+# For old-fashion players, accept five-letter truncations like 
+# "inven" instead of insisting on full words like "inventory".
+
+On the other hand, there are a lot of comments like "#2", "#6024", "#2000" or "#dummy motion verb" mean very little to a reader even in the context of the surrounding code.
+
+
+
+10. The play module (in play.py) uses some vertical formatting. The three functions it contains - load_advent_data, play, and resume are clearly related and are defined one after the other. Moreover, play is defined after load_advent_data, and play actually calls load_advent_data. Finally, it make senses that resume is defined last because even though resume doesn't explicitly call either of the other functions, one would clearly never resume a game object without first having called load_advent_data and possibly play at some point. 
+
+
+
+11. Test_commands does not run. Test_walks runs, but all tests associated with it fail. Test_data runs, but all tests associated with it fail. Test_commands does not run so it does not meet the fast criteria of running quickly (or at all). However, test_walks and test_data do meet the fast criteria. Test_walks and test_data are self-validating: all the tests within either pass or fail (in this case fail). The latter two appear to be independent - they fail regardless of which order they are run in. They are repeatable because I ran them several times with the same result. It is unclear if they are timely because the author doesn't indicate when they were written.
+
+
+
