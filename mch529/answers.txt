@@ -1,0 +1,50 @@
+eparated the code into modules and classes within the modules 
+that keep the same theme.  When creating a new class, he instantiates 
+all of his class variables in one place.  The program is heavily commented, giving information about functions, variables and general rationale for the code.
+
+2.
+Meaningful
+dwarves_killed - number of dwarves killed - game.py line 25
+treasures_not_found  - number of treasures left - some ambiguity, it 
+could be a list of treasures that are left to be found - game.py line 29
+is_dead - boolean that tells whether the player is dead or not - game.py line 34
+is_dark -boolean that tells whether the player its dark or not - a little ambiguous - could refer to what is dark, for instance is_room_dark(). -game.py line 335
+
+Not meaningful
+YESNO_ANSWERS - dictionary to convert user input to boolean value - game.py line 17
+full_wests - game.py line 23
+shiver_me_timbers - game.py line 262
+foobar - game.py line 27
+
+3. 
+MANY THINGS
+move_dwarves - game.py 188
+move_to - game.py 153
+say_okay_and_finish - game.py line 376
+do_command - game.py line 433
+
+ONE THING
+objects_at  game.py line 99
+is_here -game.py line 102
+is_finished game.py line109
+
+4.
+move_to - writes a message, resets clock, changes panic mode and 
+moves_dwarves.
+moves_dwarves - This function is over 100 lines and does many things that will have side effects in other functions/classes.  To name a few; changes the dwarf count, does a variety of different actions depending on the inventory, removes items from the inventory and writes messages.
+
+5.  In play.py, lines 18,20,21,25 are repeated on lines 30,32,33,36 .  You could put this code in a separate function, initializeGames() and call it from resume() and the beginning of the page where imports are typically implemented.  
+6.
+The program exits when pressing Control + c/z.  Other than that the program seems to correctly handle the cases where it does not understand the text.
+
+7. The class Game in game.py is over 1500 lines of code, over 50 function definitions and atleast 17 instance variables.  The readability of this program could be greatly improved by breaking this class up into several different classes.
+
+8. In the class Game the functions affect a varying amount of the instance variables but very few control a significant portion of them.  This is a sign that the class should be broken up further.  The classes Room and Object have a large amount of instance variables but their functions manipulate at most two of them. 
+
+9.  The author is a very liberal commenter.  He often uses it in place of good names for variables (play.py line 21,27,35,43) or needlessly explains what a variable is (play.py line 25,34,51 ).  Sometimes he takes a variable that has a clear meaning and then confuses the meaning with obscure and uninforming comments (play.py line 26). He often comments directly under function definitions that give some information about what the function does but leaves out what acceptable inputs for the function are (game.py line 64,73).  Sometimes in a deeply nested if statement he will try to illucidate the code by writing what the code should do (line 389) or just summarize what a section of the code below does whether or not it is clear from context (game.py line 860,863).  On another positive note he writes a comment describing what each module should do.  
+
+10.  The author seperates import statements from other code (game.py line 9-16), instantiated class variables from functions (game.py line 31-37) and functions from eachother.  
+
+11.  All of the files in the directory tests needed to be moved up one level in order for the tests to run properly.  After moving the files all three tests passed.  The tests ran in 4s,2s and .5 s respectively.  I would not call this fast.  The tests appeared to be independent as I ran them in different orders and there was no issues.  The tests were not even repeatable in their current file structure.  The tests only passed or failed - they were self-validating.  From the README.txt file I see that he passed the tests after the first release suggesting that he wrote the tests after the code was done.    
+
+
