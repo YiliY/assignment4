@@ -57,13 +57,3 @@ In the function:
 do_motion(self, word) (line 269 of file game.py)
 vertical formatting has been used to make the code clear. 
 
-
-
-
-
-
-
-
-Line 323 method describe_location(self): from the name it appear to be a method that just describe the location. But it some case it does other stuff. Like calling the method:
-self.die_here() (Line 329)
-self.do_motion(self.vocabulary[2])   (Line 346)
