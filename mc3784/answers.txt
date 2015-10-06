@@ -16,9 +16,9 @@ Examples of not meaningful names in file game.py
 
 
 3. 
-Same of the function in the program do just one thing, others appear to perform a list of different things.
+Same of the functions in the program do just one thing, others appear to perform a list of different things.
 
-Examples of function that make just one thing:
+Examples of function that do just one thing:
 -write(self, more) (line 63 of game.py)
 -is_dark(self) (line 81 of game.py)
 -do_command(self, words) (line 427 of game.py) 
@@ -29,15 +29,16 @@ Examples of function that do more than one thing:
 
 
 4. 
-At line 323 of the file game.py, the method describe_location(self).  From the name it appear to be a method that just describe the location. But in some cases it does other thing, like calling the method:
+At line 323 of the file game.py, the method describe_location(self).  From the name it appear to be a method that just describe the location. But in some cases it does other things, like calling the method:
 self.die_here() (Line 329)
 self.do_motion(self.vocabulary[2])   (Line 346)
 
 
 5.  
-I couldn’t find any clear repeated code that could be made into a function. 
+I couldn’t find any clear repeated code that could be made into a function. Even though I think that some code could be rewritten in a better way in some part of the program, so to avoid repetition.
 
-6. The program doesn’t use a lot of exception handling. It uses just in a few lines as at line 43 of adventure.py.
+
+6. The program doesn’t use a lot of exception handling. It uses it just in a few cases, such as at line 43 of adventure.py and at line 1554 of game.py
 An input that causes an error is: ctr+c. The result is:
 
 Traceback (most recent call last):
@@ -78,20 +79,20 @@ Examples of bad comments:
 
 
 10. 
-In the function:
+Vertical formatting has been used in many functions to make the code clearer, such as in the function:
 do_motion(self, word) (line 269 of file game.py)
-vertical formatting has been used to make the code clear. 
 
 
 11. In the directory tests there are three test files: 
 test_commands.py
 test_data.py
 test_walks.py
-They all should me moved to the parent directory because they depends on the files there. 
-And also, we need to add the one of code:
+They all should be moved to the parent directory because they depend on the files there. 
+And also, we need to add the lines of code:
 if __name__ == '__main__':
     unittest.main()
 
+Here the result of the three tests:
 a) for test_commands.py: 
 After that the result of the test are:
 ..
