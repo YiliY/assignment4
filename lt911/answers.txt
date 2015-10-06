@@ -1,0 +1,148 @@
+Assignment 4
+1. The author used modules/class (where he put different concerns into different modules, which can then be combined with other modules or be used by other programs), functions (which include codes to perform specific tasks), packages (such as the /tests/ package for testing, and the pacakge adventure)
+
+2. Yes, the author used meaningful names. 
+	Eg. a)load_advent_dat  - load the data of adventure
+	    b) parser - to parse passed in arguement
+	    c) game - indicate a game is avoked
+   However, there are also unmeaningful names, such as:
+	    a) line 14 in adventure.py: for c in s (hard to understand what c and s are)
+	    b) line 303 and 306 in game.py: k = 52, and k = 6 (what is k?)
+	    Meanings of variables are not clear.
+
+3. Examples of functions that only do one thing:
+	All functions in class Room(object) of model.py do one thing (line 56 - 80)
+   
+   Examples of functions that do more than one thing:
+   	a) loop() in adventure.py,  line 19 - 40
+	b) make_object(dictionary, klass, n) in data.py, line 40 - 44
+	c) def expand_tabs(segments)in data.py, line 46 -52
+
+4. In play.py, line 210,  dwarf_count, dwarf_attacks, and knife_wounds were first declared as integers with a value of 0.
+	dwarf_count = dwarf_attacks = knife_wounds = 0
+
+ However, in line 292 - 319, dwarf_count, dwarf_attacks, and knife_woulds are used as boolean flags to state conditions in the if loops, which will definitely arouse side effects, since the expected action under the if condition will never happen. 
+        if dwarf_count == 1:
+            self.write_message(4)
+        elif dwarf_count:
+            self.write('There are {} threatening little dwarves in the'
+                       ' room with you.\n'.format(dwarf_count))
+
+        if dwarf_attacks and self.dwarf_stage == 2:
+            self.dwarf_stage = 3
+
+        if dwarf_attacks == 1:
+            self.write_message(5)
+            k = 52
+        elif dwarf_attacks:
+            self.write('{} of them throw knives at you!\n'.format(dwarf_attacks))
+            k = 6
+
+        if not dwarf_attacks:
+            pass
+        elif not knife_wounds:
+            self.write_message(k)
+        else:
+            if knife_wounds == 1:
+                self.write_message(k + 1)
+            else:
+                self.write('{} of them get you!\n'.format(knife_wounds))
+            self.oldloc2 = self.loc
+            self.die()
+            return
+
+        self.describe_location()
+
+5. One example of the repeated code is found in model.py (line 130 -143) which are the functions given for the Object class. The code in each of the functions are all intereted in the actions of the Object. 
+    def carry(self):
+        self.rooms[:] = []
+        self.is_toting = True
+
+    def drop(self, room):
+        self.rooms[:] = [ room ]
+        self.is_toting = False
+
+    def hide(self):
+        self.rooms[:] = []
+        self.is_toting = False
+
+    def destroy(self):
+        self.hide()
+I think they can be compressed into one function with the if loop the assign different values to the corresponding variables in order to perfrom all these actions.
+
+6. Yes, the program use exception handling in adventure.py line 42 - 46.
+   symbol inputs such as symbols($&%%^%&^) will make the program run the exception, which is "pass" whenever unrecognized symbols are entered.
+
+7. Large classes are always in the danger of having responsibility over more than one piece of functionality. An obvious example will be the Game class in game.py. The Game class occupy the whole file with a total of 1713 lines. It does not only contain the state of the game but also states of any object in the game. The big class should be breaked into small ones for single responsibilty and readability. 
+ 
+8. The Object class in model.py line 103 -143 is not cohesive. It contains many attributes and the methods inside the class only manipulate a few of them. The author should probably break the class into smaller classes. 
+
+9.The author was trying to use comments to explain what his code does. Good examples of good  comments can be found in model.py, 
+	a) line 145 -146:
+class Message(object):
+    """A message for printing."""
+
+	b) line 152 -153:
+class Hint(object):
+    """A hint offered if the player loiters in one area too long."""
+
+Both cases explain the funtionality of the class. 
+
+Bad examples can be found in game.py, line 45 -51:
+        self.clock1 = 30                # counts down from finding last treasure
+        self.clock2 = 50                # counts down until cave closes
+        self.is_closing = False         # is the cave closing?
+        self.panic = False              # they tried to leave during closing?
+        self.is_closed = False          # is the cave closed?
+        self.is_done = False            # caller can check for "game over"
+        self.could_fall_in_pit = False  # could the player fall into a pit?
+These comments can actually be avoided by writing meaningful names for the variables. 
+
+10. The whole file data.py shows a good example of vertical formatting. It groups functions by their relativity, such as helper functions are group together and session functions are group together. Other than that, blank lines are used to show change of concepts. Instance variables are also declared together.  
+
+
+11. Simply using "python -m unittest discover" without any change to the codes returns: 
+Ran 13 tests in 0.400s
+FAILED (failures=2, errors=11)
+[Thus, failed at the 1st attemp.]
+
+Then, I checked the codes in the modules, found there are 2 lines in the test_walks.py were commented, each was taking a different walkthrough text file. So I tried again with uncommenting one of them at a time. 
+With walkthrough1.txt uncommented:
+Ran 14 tests in 0.777s
+FAILED (failures=3, errors=11)
+[so more failures, failed again.]
+
+with walkthrough2.txt uncommented:
+Ran 14 tests in 0.531s
+FAILED (failures=3, errors=11)
+[again, failed.]
+
+For the above three attempts, errors are raised by undefined variable names.
+
+I tried to execute each .py file one by one. And:
+a) test_commands.py raised an error, because it cannot find a module named play.
+b) the others did not raise error, but did not return anything to the screen as well.
+
+By changing nothing in the test package, I didn't see any test results from the tests, which I will say that the tests fail. 
+As for the F.I.R.S.T criteria:
+F) The tests are fast. We can see they finish running quickly. 
+I) Tests are independent, since they and be run in any order.
+R) The tests are repeatable, although I didn't see the results, yet from all the attempts, they prove the repeatability of the test codes. 
+S) By using unittest, the tests are validated as failed. Yet, for individually executing the .py files, most of them do not show any output to the screen. 
+T) The README.txt file shows the timeline of the program:
+Changelog
+=========
+
+| 1.3 — 2012 April 27 — installs on Windows; fixed undefined commands
+| 1.2 — 2012 April 5 — restoring saves from command line; 5-letter commands
+| 1.1 — 2011 March 12 — traditional mode; more flexible Python syntax
+| 1.0 — 2011 February 15 — 100% test coverage, feature-complete
+| 0.3 — 2011 January 31 — first public release
+
+Public release was before the test coverage, which indicates the tests are not timely.
+
+
+
+
+
+
