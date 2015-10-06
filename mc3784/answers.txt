@@ -1,0 +1,119 @@
+1. 
+-The program is object oriented.
+-The program is modular.
+-The author separated the model (mainly in the class model.py) from the flaw of the game (mainly in the file game.py)
+
+
+2. 
+Examples of meaningful name in file game.py:
+-dwarf_blocking_the_way (line 168): tell if there is a dwarf blocking the way
+-move_dwarves(self) (line 188): moves dwarves from one location to another one 
+-knife_wounds (line 210): count the number of knife wounds the player received
+
+Examples of not meaningful names in file game.py
+-foobar (line 27)
+-h (line 259)
+
+
+3. 
+Same of the functions in the program do just one thing, others appear to perform a list of different things.
+
+Examples of function that do just one thing:
+-write(self, more) (line 63 of game.py)
+-is_dark(self) (line 81 of game.py)
+-do_command(self, words) (line 427 of game.py) 
+-die_here(self) (line 767 of game.py)
+
+Examples of function that do more than one thing:
+-move_dwarves(self) (line 188 of game.py)
+
+
+4. 
+At line 323 of the file game.py, the method describe_location(self).  From the name it appears to be a method that just describe the location. But in some cases it does other things, like calling the method:
+self.die_here() (Line 329)
+self.do_motion(self.vocabulary[2])   (Line 346)
+
+
+5.  
+I couldn’t find any clear repeated code that could be made into a function. Even though I think that some code could be rewritten in a another way in some part of the program, so to avoid repetition.
+
+
+6. The program doesn’t use a lot of exception handling. It uses it just in a few cases, such as at line 43 of adventure.py and at line 1554 of game.py
+An input that causes an error is: ctr+c. The result is:
+
+Traceback (most recent call last):
+  File "adventure.py", line 44, in <module>
+    loop()
+  File "adventure.py", line 37, in loop
+    line = raw_input('> ')
+KeyboardInterrupt
+
+
+7. 
+The class Game (in the file game.py), for example, has responsibility over many piece of functionality and could be broken in smaller, more cohesive classes.   
+
+
+8. 
+The following classes are not cohesive:
+-Game (in the file game.py) has many attributes and many of them are used in just a few methods, so the class could be broken in smaller, more cohesive classes.  
+-Room (in the file model.py) has many attributes that are not used in its methods.
+
+
+9. 
+The author uses comments rarely and some of them don’t really explain much.
+Examples of good comments:
+
+- # Check whether we should offer a hint.(line 389 of game.py)
+
+- # Handle suspend separately, since filename can be anything,
+  # and is not restricted to being a vocabulary word (and, in
+  # fact, it can be an open file). 	
+  (line 507 of game.py)  			
+
+Examples of bad comments:
+- #6010 (line 209 of game.py and in many other places there are other number) those are line place holder: they are considered bad comments. Even though in this case the author explain at the beginning of game.py that they are placed so to have a reference to the Fortran equivalent program .
+
+- foobar = -1  # FOOBAR turn number of most recent still-valid "fee" (line 27 of game.py): Comment shouldn’t explain the name of a variable that could explain itself with a better name.
+
+- # stack()[0] is this; stack()[1] is adventure.play(); so, stack()[2] (line 29 of prompt.py)
+
+
+10. 
+Vertical formatting has been used in many functions to make the code clearer, such as in the function:
+do_motion(self, word) (line 269 of file game.py)
+
+
+11. In the directory tests there are three test files: 
+test_commands.py
+test_data.py
+test_walks.py
+They all should be moved to the parent directory because they depend on the files there. 
+And also, we need to add the lines of code:
+if __name__ == '__main__':
+    unittest.main()
+
+Here the result of the three tests:
+a) for test_commands.py: 
+After that the result of the test are:
+..
+----------------------------------------------------------------------
+Ran 2 tests in 4.027s
+
+OK
+
+
+b) for test_data.py:
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.108s
+
+OK
+
+c)for test_walks.py (to run this test we also need to move to the parent directory the two files: syntax.txt and    vignettes.txt):
+..
+----------------------------------------------------------------------
+Ran 2 tests in 2.886s
+
+OK
+
+Once moved and changed as described, the tests all respect the F.I.R.S.T. criteria, (well, we cannot say anything about Timely because we don’t know when the author wrote the test).  
