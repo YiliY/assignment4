@@ -1,0 +1,114 @@
+Assignment4
+
+Siyi Xie (sx444)
+
+
+1. Three main techniques that the author used to structure the program:
+(1) Modules: the author used several modules to structure the program such as play.py, adventure.py, data.py, etc. The modules perform logically discrete functions, interacting through well-defined interfaces. They can perform the function of the whole program when combined together. This technique can make the program more readable and easier to understand.
+(2) Classes: the author used classes to structure the program such as class "Room" and class "Word" in line 34 and line 82 of the file of model.py. The classes combine both structural and behavioral components. They encapsulate state information, such as attributes. They contain a set of functions that define behavior. Classes are a means of organizing the components.
+(3) Cohesion: the author used cohesion to structure the program. Cohesive classes maintain small number of instance variables. Each method manipulate one or more of the instance variables. The more variables a method manipulate, the more cohesive it is to the class.
+The class of "Move" in line 3 of the file of model.py is an example of cohesion. 
+
+2. The author used some meanningful names in the program but he/she also used some names that are not quite meaningful. 
+
+Examples of meaningful names:
+(1) "compute_score"
+    file: game.py line: 1649
+    The author used "compute_score" to name a function which would compute the scores. This is very clear and easy to understand.
+(2) "accumulate_massage"
+    file: data.py line: 54
+    This is a function. And the author used a verb phrase to name it. It is clear that we can easily know what it would do. It seems that this method would accumulate the massages.
+(3) "dwarf.has_seen_adventurer"
+    file: game.py line: 230
+    This variable is used to identify if adventurer has been seen or not. It is very easy-to-understand and clear.
+
+Examples of names that not meaningful:
+(1) "obj"
+    file: data.py line: 219
+    The author intended to use "obj" to mean object for short. However, we should not use attribute prefixes.
+(2) "loc"
+    file: game.py line: 154
+    The author intended to use "loc" to mean location for short. Whileas, it is not proper to use attibute prefixes. The author would better use more clear and sophisticated name for this variable in order to make it easier for readers to understand and search.
+(3) "data"
+    file: data.py line: 24
+    The author used "data" as a class name. This is not proper for a class name. We should avoid using words like Manager, Processor, Data, or Info in the name of a class.
+(4) "start2"
+    file: game.py line: 130
+    This function is supposed to display instructions if the user wants them. Although it serves as a part of the start of the game, the name of "start2" cannot exactly imply the meaning of this function.
+
+3. Some of the functions in the code do one thing while some of them do more than one thing.
+
+Examples of functions that only do one thing:
+(1) "write_message" file: game.py line: 69
+(2) "accumulate_message" file: data.py line: 54
+(3) "section2" file: data.py line: 64
+
+Examples of functions that do more than one thing:
+(1) "dispatch_command" file: game.py line: 501
+(2) "move_dwarves" file: game.py line: 188
+(3) "parse" file: data.py line: 198
+
+
+4. Yes, some functions cause side effects.
+(1) "make_object" file: data.py line: 40
+(2) "can_move" file: data.py line: 177
+(3) "callback" file: game.py line: 401
+
+5. Repeated code that could be made into a function:
+In the file of game.py, the code in line 89, 93 and 100 are repeated.
+
+
+6. The part from line 42 to 46 of the file of adventure.py is exception handling. If "args.savefile" does not exit or is empty, it will raise "EOFError" exception. 
+
+
+7. Yes. For example, the class of "ReprTriggeredPhrase" in the line 5 of the file of prompt.py has more than one piece of functionality. The function of "__repr__" runs this command and returns the message that results. And the function of "__call__" returns a compound command of several words, like `get(keys)`.
+
+
+8. Classes that are not cohesive:
+The class of "Pirate" in line 185 of the file of model.py is not cohesive.
+The class of "Dwarf" in line 165 of the file of model.py is also not cohesive.
+
+
+9. The author used comments to explain more about the code that does not explan itself. Some of his/her comments are for explanation of intent. However, some of the comments are redundant and meaningless.
+
+Examples of good comments:
+(1) file: data.py line: 158
+This is an explanation of intent.
+(2) file: game.py line: 880
+This is an explanation of intent.
+(3) file: data.py line: 113
+This is an explanation of intent.
+
+Examples of bad comments:
+(1) file: data.py line: 218
+This is commented-out code.
+(2) file: data.py line: 204
+This is a redundant comment.
+(3) file: data.py line: 196
+This is a redundant comment.
+
+
+10. 
+file: adventure.py line: 38-39
+The author declared the variable words just before using it. The declaration and usage are very closed.
+
+11. 
+The test of commands (test_commands.py) failed since there is an error when running; while another two tests are subjective since neither of them have a boolean output.
+
+(1) FAST:
+I used cProfile to meature CPU time. The results are as followed:
+test_walks.py   0.181 seconds
+test_data.py    0.104 seconds
+It seems that these two tests meet the FAST criteria.
+(2) INDEPENDENT
+I am able to run each test independently and run the two tests in any order. And they seem not set up the conditions for the next test.
+Thus I think the two tests meet the INDEPENDENT criteria.
+(3) REPEATABLE
+I tried to run the two tests when the internet was turned off and they could be run. So it seems that the two tests also meet the REPEATABLE criteria.
+(4) SELF-VALIDATING
+Since neither of the two tests have a boolean output, it seems that both of them are subjective. So neither of them meet this criteria.
+(5) TIMELY
+Since the two tests are probably subjective tests, I could not identify if they are timely or not. 
+
+In addition, since tests_commands.py cannot be run, I cannot identify if it meets the criteria.
+
