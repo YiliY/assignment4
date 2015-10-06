@@ -1,0 +1,225 @@
+1.	Describe three main techniques that the author used to structure the program.
+Ans.Below are three techniques that author used to structure the program:
+
+	1. Modular Programming : Program is well organized in different modules and classes. Small functions combined together to perform the overall functionality and they can be reused by any other program too.
+	
+	2. Class-based Programming : All objects are instance of class or based on class. data.py has Data class, game.py has Game class. Classes representing game components are defined in model.py. 
+								 All these classes are well connected to eachother.
+	
+	Classes in model.py are as below,
+	
+		class Move(object):
+		class Room(object):
+		class Word(object):
+		class Object(object):
+		class Message(object):
+		class Hint(object):
+		class Dwarf(object):
+		class Pirate(Dwarf):
+		
+	3. Vertical and Horizontal Formatting: Blank lines (Vertical formatting) and White Spaces(Horizontal Formatting) are used at necessary places.
+	
+	
+  
+2.	Has the author used meaningful names? Give some examples of meaningful names used and what you think they mean. Give some examples of where the author has not used meaningful names. 
+Ans.At some places author has used meaningful names but on the other hand at many places he used names which doesn't seem meaningful..
+	
+	Example of meaningful names:
+	
+	1. score_and_exit(self):  (  game.py line 1698 )
+	2. warned_about_dim_lamp = False  ( game.py line 32 )
+	
+	
+	Example of not meaningful names:
+	
+	1. t_drop  ( game.py line 896 - what does 't' represent in the name ? ) 
+    2. start2(self, yes):   ( game.py line 130 - this name is very confusing. It seems like a second start) 
+    3. section1(data, n, *etc)  ( data.py line 59 - sectio1/2/3/4/5.. are not at all meaningful names )    
+
+3.	Do the functions used in the code do one thing? Give some examples of functions that only do one thing. Give some examples of functions that do more than one thing.
+Ans.Not all the functions do only one thing.
+    
+    -> Function which do only one thig :
+    
+    1. ( game.py line 57 - )
+    
+    def random(self):
+        return self.random_generator.random()
+
+    def choice(self, seq):
+        return self.random_generator.choice(seq)
+	
+	-> Functions which do more than one thing :
+	
+    1. move_dwarves ( game.py line 188 )   - It also handles some functionality related to treasures which should  be handeled by separate function.
+	
+
+4.	Do any of the functions cause side effects? If so, which ones?
+Ans.Yes, There are functions which cause side effects. Below are the examples,
+
+	1. move_dwarves ( gmae.py line 188 ) : Given function is suppose to do work related to moving dwarves. But as shown below it also does some work related to treasures. 
+										   There should be another function related to treasures which should handle all treasures related functionality.
+	
+	-----( game.py line 254 )------------------------------
+	
+    treasures = [ t for t in self.treasures if t.is_toting ]
+                if (self.platinum in treasures and self.loc.n in (100, 101)):
+                    treasures.remove(self.platinum)
+
+                if not treasures:
+                    h = any( t for t in self.treasures if self.is_here(t) )
+                    one_treasure_left = (self.treasures_not_found ==
+                                         self.impossible_treasures + 1)
+                    shiver_me_timbers = (
+                        one_treasure_left and not h and not(self.chest.rooms)
+                        and self.is_here(self.lamp) and self.lamp.prop == 1
+                        )
+                        
+      -------------------------------------------------------
+      
+      2. describe_location ( game.py line 323 ) : This function also has some treasure related functionality which is not related to location descreption.
+
+
+
+
+5.	Can you find any repeated code that could be made into a function?
+Ans. There are cases when functions use almost  same type of code within if-else loop for different conditions. Code can be optimized if separate small function handle the work within the if conditions.
+    
+     --> below is one small example ( game.py line 1281 ) : If you mark within the if conditions almost same type of code is used with different arguments.
+                                                            We can create a separate function to handle this functionality. We can call this function with different arguments inside the if condition.
+                                                            
+    ---------------------------------------------------------------
+
+        if self.is_here(self.dragon) and self.dragon.prop == 0:
+            self.write_message(152)
+            self.axe.drop(self.loc)
+            self.do_motion(self.vocabulary['null'])
+            return
+
+        if self.is_here(self.troll):
+            self.write_message(158)
+            self.axe.drop(self.loc)
+            self.do_motion(self.vocabulary['null'])
+            return
+
+        if self.is_here(self.bear) and self.bear.prop == 0:
+            self.write_message(164)
+            self.axe.drop(self.loc)
+            self.axe.is_fixed = True
+            self.axe.prop = 1
+            self.finish_turn()
+            return
+     --------------------------------------------------------------------------
+
+6.	Does the program use exception handling? Can you find any input that causes the program to terminate abnormally? Hint: run the program from the terminal prompt. The invalid input may not be normal text.
+Ans. Yes, Exception handling is used in adventure.py program.
+    ---------------------
+		try:
+        loop()
+    except EOFError:
+        pass
+    ---------------------
+     -> I didnt find any input that causes the program to terminate abnormally.
+        
+
+7.	Do any of the classes have responsibility over more than one piece of functionality. If so, which ones?
+Ans. I think classes Move, Game, Data, Room, Word, Object, Message, Hint, Pirate are focused on only their respective functionality.
+     -> Class Dwarf has one function can_move which is related to 'move.action'. May be this functionality should not be included in Dwarf class.
+        This seems extra functionality for Dwarf class.
+
+8.	Are the classes cohesive? List any that aren’t.
+Ans.Yes, the classes seem cohesive. As an example Game and Data Classes have cohession as they are distributed in reusable functions and also well-connected.
+   --> I just found one example of class which is not cohesive which is : 'Room'
+     - 'Room' class has has 15 variables but only few of them have been used in function definations. This factor is the characteristic of the class which is not cohessive.
+	
+	
+9.	Describe the author’s approach to commenting the code. Provide examples of good and bad comments that have been used in the code.
+Ans.Author's approach is niether good nor bad. At some places he explained very well about the functionality of the code but at some places he used very irrelevent and non-informative comments.
+
+Example of good comments:
+
+        ( game.py line 148 ) 
+	1. # Routines that handle the aftermath of "big" actions like movement.
+       # Although these are called at the end of each `do_command()` cycle,
+       # we place here at the top of `game.py` to mirror the order in the
+       # advent.for file.
+	-> So this type of comment can give the idea about the abstract functionality to the reader.
+
+        ( game.py line 241 )
+	2.  # A dwarf cannot walk and attack at the same time.
+	
+	
+Example of bad comments:
+ 
+       1. self.loc = loc = newloc  #74        ( game.py line 177 )
+       2. #6000                               ( game.py line 190 )
+	-> At many places #(number) comment is used. This seems like position markers but this doesn't say anything about the code.
+
+       3. else:  # the pirate     ( game.py line 248 )
+    -> # the pirate - this should be more informative instead of just one word.
+      
+
+
+10.	Provide an example of where vertical formatting has been used to make the code clearer. 
+Ans.Below are the examples of functions where vertical formatting has been used to make the code clearer.
+	
+ 	1. def start2(self, yes):     ( game.py line 130 )
+       
+        """Display instructions if the user wants them."""
+        if yes:
+            self.write_message(1)
+            self.hints[3].used = True
+            self.lamp_turns = 1000
+
+        self.oldloc2 = self.oldloc = self.loc = self.rooms[1]
+        self.dwarves = [ Dwarf(self.rooms[n]) for n in (19, 27, 33, 44, 64) ]
+        self.pirate = Pirate(self.chest_room)
+
+        treasures = self.treasures
+        self.treasures_not_found = len(treasures)
+        for treasure in treasures:
+            treasure.prop = -1
+
+        self.describe_location()
+
+	2. def move_to(self, newloc=None):  #2      ( game.py line 153 )
+	
+11.	Run the tests provided with the program. Do they pass or fail? Do you consider the tests meet the F.I.R.S.T. criteria? Provide details of why they do or do not meet the criteria. 
+Ans.
+
+1. test_data.py
+
+	INPUT : python test_data.py
+	OUTPUT  : ------
+      
+    EXPL : When we run test_data.py it is not giving anything as the output. So we can not decide whether it is failing or running succesfuly. But it is not meeting F.I.R.S.T. criteria
+    	   as we can not decide whether it is independent, repeatable, self-validationg an timely.  
+2.test_walks.py
+
+	INPUT : python test_walks.py
+	OUTPUT  : ------
+      
+    EXPL : When we run test_walks.py it is not giving anything as the output. So we can not decide whether it is failing or running succesfuly. But it is not meeting F.I.R.S.T. criteria
+    	   as we can not decide whether it is independent, repeatable, self-validationg an timely.  
+
+3.test_commands.py
+
+	INPUT : python test_commands.py
+	OUTPUT  : Traceback (most recent call last):
+  			  File "test_commands.py", line 2, in <module>
+  			  from play import load_advent_dat
+			  ImportError: No module named play
+			
+	EXPL : When you run the test in 'tests' directory it is giving error as shown. but when you move it under the adventure directory where all python programs exist it runs without any error.
+	       but without giving any output same as previous two tests. So I think tests should run directly from the tests directory. If moving is necessary then it is not a valid test case. So this
+	       test also doesn't meet F.I.R.S.T. criteria.
+	 
+	     
+Command line view:
+ds-ga-1007$ python test_data.py
+ds-ga-1007$ python test_walks.py
+ds-ga-1007$ python test_commands.py
+Traceback (most recent call last):
+  File "test_commands.py", line 2, in <module>
+    from play import load_advent_dat
+ImportError: No module named play
