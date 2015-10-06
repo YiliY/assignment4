@@ -1,6 +1,9 @@
                                 						Assignment 4 - vdn207 - DS-GA 1007
 
-1) The 3 main techniques used to structure the program are:
+Question 1
+----------
+
+The 3 main techniques used to structure the program are:
     
     a) Modular programming: There are 5 modules which are required for running the program. Each module represents different aspects of the application. 
 
@@ -22,7 +25,10 @@ These modules interact together to make the whole program run.
 
 
 
-2) Yes. The author has used meanigful names at almost every place.
+Question 2
+----------
+
+Yes. The author has used meanigful names at almost every place.
 
 Good Names
 ----------
@@ -46,7 +52,10 @@ Bad Names
     d) game.py - Line 1645 -  wake_repository_dwarves() doesn't clearly indicate it's operation as per its name.
 
 
-3) Yes. Almost every function does one thing in the program.
+Question 3
+----------
+
+Yes. Almost every function does one thing in the program.
 
 
 Functions that do one thing
@@ -62,7 +71,10 @@ Functions that don't do one thing
     b) game.py - Line 1115 - t_attack() defines another function callback() within its block of code.
 
 
-4) Yes. There are functions which cause side effects. 
+Question 4
+----------
+
+Yes. There are functions which cause side effects. 
 
 	a) game.py - Line 114 - The function is defined as start() and is supposed to start the game. But, on lines 120,121,122, there is a for-loop mapping the user commands which are more than 5 letter strings to their short-hand form. 
 
@@ -82,9 +94,15 @@ Functions that don't do one thing
     b) game.py - Line 772 - def die(). After updating the death status, the function runs other code which is not what the function name defines.  
 
 
-5) No. I couldn't find any repeated code that could be made into a function.
+Question 5
+----------
 
-6) Yes. The program uses exception handling. 
+No. I couldn't find any repeated code that could be made into a function.
+
+Question 6
+---------- 
+
+Yes. The program uses exception handling. 
 	adventure.py - Line 43 - A 'try' exception handling is used
 	game,py - Line 1554 - A 'try' exception handling is used
 
@@ -96,16 +114,25 @@ Functions that don't do one thing
 	    	line = raw_input('> ')
 		KeyboardInterrupt
 
-7) No. Every class has only one piece of functionality.
+Question 7
+----------
 
-8) Most of the classes are cohesive. 
+No. Every class has only one piece of functionality.
+
+Question 8
+----------
+
+Most of the classes are cohesive. 
 	a) Class Dwarf (Line 165 - model.py) appears to have less cohesion. 
 
 	Class Dwarf uses an object of Class Room to encapsulate it's location. There is a dependency between the two classes.
 
 	Also, Class Dwarf uses Class Move because the Class Dwarf has methods using an object of 'Move' which is creating a dependency.
 
-9) The author describes the purpose of each module at the very beginning, describes the purpose of classes created in a unique way below the class names using 3 quotes("""......""") and uses '#' for commenting about the fuctioning of the code whereever required.
+Question 9
+----------
+
+The author describes the purpose of each module at the very beginning, describes the purpose of classes created in a unique way below the class names using 3 quotes("""......""") and uses '#' for commenting about the fuctioning of the code whereever required.
 
 Good Comments
 -------------
@@ -128,7 +155,11 @@ Bad Comments
 	b) game.py - Line 190 -> #6000
 	   Again, the comment is difficult to understand without the context.
 
-10) Module: play.py - The entire code is below. Between functions, a single blank space has been consistently used. So, a single blank space between blocks indicates separation. And, within a function, global variables, the libraries to be imported (preprocessing steps) and working component of the code are separated by a blank line between them (in which ever order they appear).
+
+Question 10
+-----------
+
+Module: play.py - The entire code is below. Between functions, a single blank space has been consistently used. So, a single blank space between blocks indicates separation. And, within a function, global variables, the libraries to be imported (preprocessing steps) and working component of the code are separated by a blank line between them (in which ever order they appear).
 
 """The Adventure game."""
 
@@ -169,7 +200,9 @@ def resume(savefile, quiet=False):
     if not quiet:
         print('GAME RESTORED\n')
 
-11) 
+Question 11
+-----------
+
 Test module: test_commands.py - PASS
 
 ..
