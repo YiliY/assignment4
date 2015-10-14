@@ -1,0 +1,41 @@
+1. 	a. Contained in model.py are all the class objects used for adventure, although storing multiple classes in a single module is not a great practice, the structure of the classes is cohesive. Small amount of attributes and methods to mutate those attributes.
+
+   	b. Throughout the code helpful variable names are used where possible. And where they aren't comments are left to explain. (I.e. "sleep(9. / BAUD)  # 8 bits + 1 stop bit @ the given baud rate" in adventure.py)
+
+  	c. In data.py the different section methods, while maybe not the most usefully named, shows a good level of abstraction. As opposed to doing a sections() method with some sort of switch 
+
+2.	Useful:	adventure line 38 - words - all the words from the user
+		game line 1142 - rooms - mix of old rooms and new 				rooms where the user is located
+
+	Useless:game line 1051 - t_lock, t_unlock
+		game line 1065 - i_light, t_light
+
+3.	One thing:	adventure line 13 - baudout(s)
+			Most methods within model.py classes
+				_eq_(), is_at(), carry()
+
+	Multiple things: Both play() and resume() in play.py feel like 			they do more than the method says. That may be because 			of their simple names but both start with the same 			lines that seems like they could be put into an 		initializeGame() function of some sort
+
+4.	game line 1567 resume(self, obj)
+		When resuming the game files the method reinstates the 			random number generator, not exactly intuitive for a 			resume method
+
+5.	As stated in answer 3 both paly and resume have initialization 		code that look like it could be put into the method
+
+6.	The code uses exception handling in the input process. By 		using control+c you can end the program by triggering an 		exception
+
+7.	model.py contains mutiple classes with various bits of 		functionality ranging from item classifications to 		dwarf/pirate differentiation
+
+
+8.	In model the classes are all pretty cohesive, the one suspect 		class is the Game class. It is so massive that it's hard to 		tell how many of the instance variables each method touches, 		but it's likely that such a large class could be split up
+
+9.	The author often uses comments either to explain veriable 		meanings or elaborate the intent of a function. In cases like 		the Game class where the author comments after the instance 		variables in general variable names should be self explanatory 		but on top of it all some of the comments are more confusing 		than the variable name(I.e. lines 24-26). An instance of good 		commenting is seen in prompt.py line 29, where it's explained 		what objects are taking spaces in the stack and why the 	current spot is used.
+
+10.	The author uses general vertical formatting, seperating new 		classes and functions. Another helpful usage is the spacing of 		unrelated conditional statements. Throughout the game class as 		a new conditional statement is created a line of whitespace is 		included to seperate independent statements
+
+11.	All 14 tests pass.
+	Fast: The tests run within a respectable amount of time 	allowing for frequent testing.
+	Independent: No tests are dependent on other tests so order of 		testing does not matter
+	Repeatable: Tests are repeatable.
+	Self-validating: The tests in command judge their success on 		not throwing exceptions, but they don't necessarily return any 		true or false values.
+	Timely: We can't really judge the timeliness but based on the 		quality of the tests we can assume that the author was a 		responsible coder and did these as he was writing the code
+
