@@ -1,0 +1,73 @@
+1. 3 main techniques:
+	a. classes
+	b. modules
+	c. functions
+
+2. Yes, some names are meaningful.
+	a. Examples of meaningful names:
+	1) score: it's a noun and we can guess this variable is either counting the score or the score itself.
+	2) maxscore: this name is pronounceable and it's about maximum score.
+
+	b. Examples of not meaningful names:
+	1). c: this name is too short. It's hard to tell what's this variable about.
+	2). verblist: it's better not to use hungarian notation. 
+
+3. Functions do one thing and more than one things:
+	a. Examples of functions do one thing:
+	1). make_object: make an object
+	2). expand_tabs: expand tabs
+	b. Examples of functions do more than one thing:
+	1). score_and_exit: this function does 2 things, Score, and Exit
+	2). is_dark: it assigns a value to lamp, reevaluate is_dark and returns a value.
+
+4. Yes, some functions cause side effects. For example:
+	a. move_to: it changes a value from self.lc
+	b. start2: it reduces the value from treasures.prop
+
+5. I did not found any repeated code 
+
+6. The program has exception handling:
+	    try:
+	        loop()
+	    except EOFError:
+	        pass
+
+   Maybe a try-catch can be added on the raw_input(), as a user may type something unexpected to cause errors.
+
+7. In game.py, the class Game has more than one function; it pretty much has the most function for this game. 
+
+8. The game class is not cohesive. The game class has lots instance variables, but most of them are not manipulated in the methods.
+
+9. The author comments is simple and instructive.
+	a. Good Comments
+	1) # how many times they have typed "west" instead of "w"
+	2) foobar = -1 # FOOBAR turn number of most recent still-valid "fee"
+	b. Bad Comments  
+	1) "#2", "#6024" these comments are not very helpful to understand the code
+
+10. An example of good vertical formatting: the example below is very easy for reader to identify the major elements in the class.
+
+class Room(object):
+    """A location in the game."""
+    …
+
+    def __init__(self):
+        self.travel_table = []
+
+    def __repr__(self):
+        return '<room {} at {}>'.format(self.n, hex(id(self)))
+
+    @property
+    def is_forced(self):
+        return self.travel_table and self.travel_table[0].is_forced
+
+    @property
+    def is_aboveground(self):
+        return 1 <= self.n <= 8
+
+11. All tests passed and they meet the FIRST criteria
+	Fast: both tests do not take long
+	Independent: the two tests can be run in any order
+	Repeatable: they can be run in windows, mac, linux
+	Self-Validation: yes, they only output pass or fail
+	Timely:We were not positive if it’s written during the code development.But it seems it is developed along with the development of the code from readme.txt
